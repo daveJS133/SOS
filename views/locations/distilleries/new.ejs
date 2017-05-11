@@ -1,0 +1,63 @@
+<% include ../../partials/header %>
+    <div class="container-fluid">
+        <div class="col-xs-1 col-sm-2 col-md-4">
+        </div>
+        <div class="col-xs-10 col-sm-8 col-md-4">
+            <form action="/locations/distilleries" method="POST">
+                <div class="row cbox">
+
+                    <h1 style="text-align: center">Create a New Distillery</h1>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="name" placeholder="name">
+                        <input class="form-control" type="text" name="image" placeholder="image url">
+                        <input class="form-control" type="text" name="description" placeholder="description">
+                        <div class="form-group">
+                          <label for="Area">Area:</label>
+                          <select class="form-control" id="area">
+                            <option>Highlands</option>
+                            <option>Speyside</option>
+                            <option>Islands</option>
+                            <option>Islay</option>
+                            <option>Lowlands</option>
+                            <option>Campbeltown</option>
+                          </select>
+                        </div>
+                    </div>
+    
+                    <label>Does this place have:</label>
+                </div>
+                <div class="row cbox">
+
+
+
+                    <div class="form-group">
+
+                        <label class="checkbox-inline cbox"><input type="checkbox" name = "chkTour" value= tickTour>Tours</label>
+                        <label class="checkbox-inline cbox"><input type="checkbox" name = "chkShop" value= tickShop>Shopping</label>
+                        <label class="checkbox-inline cbox"><input type="checkbox" name = "chkGarden" value=tickGarden>Garden/Walks</label>
+                        <label class="checkbox-inline cbox"><input type="checkbox" name = "chkSampling" value=tickSampling>Product Sampling</label>
+                    </div>
+                </div>
+                <div class="row cbox">
+<div class="form-group">
+                    <label class="checkbox-inline"><input type="checkbox" name = "chkBar" value=tickBar>Bar</label>
+                    <label class="checkbox-inline"><input type="checkbox" name = "chkFood" value=tickFood>Restaurant</label>
+                    <label class="checkbox-inline"><input type="checkbox" name = "chkParking" value=false>Parking</label>
+                    <label class="checkbox-inline"><input type="checkbox" name = "chkEvents" value=false>Scheduled events</label>
+                    
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="row">
+
+            <a href="/locations/distilleries">Go Back</a>
+
+        </div>
+
+        <% include ../../partials/footer %>
+        
+    </div>

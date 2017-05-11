@@ -1,0 +1,54 @@
+.body {
+    height: auto;
+    margin: auto;
+}
+
+.home-img {
+    margin: auto;
+    background-image: url(/assets/wood.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 200px;
+    max-width: 100%;
+}
+
+.form-control {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.ls-icon {
+    padding-left: 5px
+}
+
+.checkbox-inline {
+    margin-left: 0px !important;
+    margin-right: 10px !important;
+}
+
+.cbox {
+    display: inline-block;
+    float: none;
+    margin: 0 auto;
+}
+
+.body {
+    margin-left: 5%;
+}
+
+.thumbnail img {
+    width: 100%;
+}
+
+.thumbnail {
+    padding: 0;
+}
+
+.thumbnail .caption-full {
+    padding: 9px;
+}
+
+#delete-form {
+    display: inline;
+}

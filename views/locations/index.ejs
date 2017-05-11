@@ -1,0 +1,75 @@
+<% include ../partials/header %> 
+
+ <div class="container">
+     <header class="jumbotron">
+         <div class="container">
+             <h1>Welcome To Scotland!</h1>
+             <p>View our malt whisky distilleries</p>
+             <p>
+                <a class="btn btn-primary btn-large" href="/locations/new">Add New Location</a>
+              <form action="/locations" method="GET">
+                <div class="row cbox">
+                    <div class="form-group">
+                        <%if(checkBoxes['chkHighlands']){%>
+                            <label id = "chkHighlands" class="checkbox-inline areabox active"><input type="checkbox" checked="checked"name = "chkHighlands" value= true>Highlands</label>
+                        <%}else{%>
+                        <label id = "chkHighlands" class="checkbox-inline areabox "><input type="checkbox" name = "chkHighlands" value= true>Highlands</label>
+                        <%}%>
+                        
+                        <%if(checkBoxes['chkSpeyside']){%>
+                        <label id = "chkSpeyside" class="checkbox-inline areabox active"><input type="checkbox" checked="checked"name = "chkSpeyside" value= true>Speyside</label>
+                        <%}else{%>
+                        <label id = "chkSpeyside" class="checkbox-inline areabox "><input type="checkbox" name = "chkSpeyside" value= true>Speyside</label>
+                        <%}%>
+                        
+                        <%if(checkBoxes['chkIslands']){%>
+                        <label id = "chkIslands" class="checkbox-inline areabox active"><input type="checkbox" checked="checked"name = "chkIslands" value= true>Islands</label>
+                        <%}else{%>
+                        <label id = "chkIslands" class="checkbox-inline areabox "><input type="checkbox" name = "chkIslands" value= true>Islands</label>
+                        <%}%>
+                        
+                        <%if(checkBoxes['chkIslay']){%>
+                        <label id = "chkIslay" class="checkbox-inline areabox active"><input type="checkbox" checked="checked"name = "chkIslay" value= true>Islay</label>
+                        <%}else{%>
+                        <label id = "chkIslay" class="checkbox-inline areabox "><input type="checkbox" name = "chkIslay" value= true>Islay</label>
+                        <%}%>
+                        
+                        <%if(checkBoxes['chkLowlands']){%>
+                        <label id = "chkLowlands" class="checkbox-inline areabox active"><input type="checkbox" checked="checked"name = "chkLowlands" value= true>Lowlands</label>
+                        <%}else{%>
+                        <label id = "chkLowlands" class="checkbox-inline areabox "><input type="checkbox" name = "chkLowlands" value= true>Lowlands</label>
+                        <%}%>
+
+                       <%if(checkBoxes['chkCampbeltown']){%>
+                        <label id = "chkCampbeltown" class="checkbox-inline areabox active"><input type="checkbox" checked="checked"name = "chkCampbeltown" value= true>Campbeltown</label>
+                        <%}else{%>
+                        <label id = "chkCampbeltown" class="checkbox-inline areabox "><input type="checkbox" name = "chkCampbeltown" value= true>Campbeltown</label>
+                        <%}%>
+                    </div>
+                </div>
+                
+                 <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Search!</button>
+                </div>
+                </form>
+             </p>
+         </div>
+     </header>
+     <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+        <% locations.forEach(function(location){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                   <img src="<%= location.image %>">
+                   <div class="caption">
+                       <h4><%= location.name %></h4>
+                   </div>
+                   <p>
+                       <a href="/locations/<%= location._id %>" class="btn btn-primary">More Info</a>
+                   </p>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>
+
+<% include ../partials/footer %>
