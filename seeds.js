@@ -3,6 +3,157 @@ var mongoose = require("mongoose");
 var Location = require("./models/location");
 var User = require("./models/user");
 
+
+var largeList = [
+    "Aberfeldy",
+    "Aberlour",
+    "Abhainn Dearg",
+    "Ailsa Bay",
+    "Allt-a-Bhainne",
+    "Annandale",
+    "Arbikie",
+    "Ardbeg",
+    "Ardmore",
+    "Ardnahoe",
+    "Ardnamurchan",
+    "Arran",
+    "Auchentoshan",
+    "Auchroisk",
+    "Aultmore",
+    "Balblair",
+    "Ballindalloch",
+    "Balmenach",
+    "Balvenie",
+    "Banff",
+    "Ben Nevis",
+    "Ben Wyvis",
+    "Benriach",
+    "Benrinnes",
+    "Benromach",
+    "Bladnoch",
+    "Blair Athol",
+    "Borders",
+    "Bowmore",
+    "Braeval",
+    "Brora",
+    "Bruichladdich",
+    "Bunnahabhain",
+    "Caol Ila",
+    "Caperdonich",
+    "Cardhu",
+    "Clynelish",
+    "Coleburn",
+    "Convalmore",
+    "Cragganmore",
+    "Craigellachie",
+    "Daftmill",
+    "Dailuaine",
+    "Dallas Dhu",
+    "Dalmore",
+    "Dalmunach",
+    "Dalwhinnie",
+    "Deanston",
+    "Dufftown",
+    "Edradour",
+    "Ferintosh",
+    "Fettercairn",
+    "Glasgow",
+    "Glen Albyn",
+    "Glen Elgin",
+    "Glen Flagler",
+    "Glen Garioch",
+    "Glen Grant",
+    "Glen Keith",
+    "Glen Mhor",
+    "Glen Moray",
+    "Glen Ord",
+    "Glen Scotia",
+    "Glen Spey",
+    "Glenallachie",
+    "Glenburgie",
+    "Glencadam",
+    "Glendronach",
+    "Glendullan",
+    "Glenesk",
+    "Glenfarclas",
+    "Glenfiddich",
+    "Glenglassaugh",
+    "Glengoyne",
+    "Glengyle",
+    "Glenkinchie",
+    "The Glenlivet",
+    "Glenlochy",
+    "Glenlossie",
+    "Glenmorangie",
+    "Glenrothes",
+    "Glentauchers",
+    "Glenturret",
+    "Glenugie",
+    "Glenury Royal",
+    "Highland Park",
+    "Imperial",
+    "InchDairnie",
+    "Inchgower",
+    "Inverleven",
+    "Isle of Harris",
+    "Isle of Raasay",
+    "Jura",
+    "Kilchoman",
+    "Killyloch",
+    "Kinclaith",
+    "Kininvie",
+    "Knockando",
+    "Knockdhu",
+    "Ladyburn",
+    "Lagavulin",
+    "Laphroaig",
+    "Leven",
+    "Lindores Abbey",
+    "Linkwood",
+    "Littlemill",
+    "Loch Lomond",
+    "Lochside",
+    "Lomond",
+    "Longmorn",
+    "Macallan",
+    "Macduff",
+    "Malt Mill",
+    "Mannochmore",
+    "Millburn",
+    "Miltonduff",
+    "Mortlach",
+    "North Port",
+    "Oban",
+    "Parkmore",
+    "Pittyvaich",
+    "Port Ellen",
+    "Pulteney",
+    "Rosebank",
+    "Roseisle",
+    "Royal Brackla",
+    "Royal Lochnagar",
+    "Scapa",
+    "Speyburn",
+    "Speyside",
+    "Springbank",
+    "St Magdalene",
+    "Strathearn",
+    "Strathisla",
+    "Strathmill",
+    "Strathmore",
+    "Talisker",
+    "Tamdhu",
+    "Tamnavulin",
+    "Teaninich",
+    "Tobermory",
+    "Tomatin",
+    "Tomintoul",
+    "Tormore",
+    "Tullibardine",
+    "Wolfburn"
+];
+
+
 var data2 = [
     ["Aberfeldy",
         "Aberfeldy Perth and Kinross",
@@ -1385,6 +1536,56 @@ function seedDB() {
     User.remove({});
     User.create(user);
 
+    var mergeLargeAndOriginal = function (data, largeList) {
+        largeList.forEach(
+            function (listName) {
+                console.log("finding " + listName);
+                if (data.filter(function (obj) {
+                        return obj.name == listName;
+                    }).length == 0) {
+                    data.push({
+                        name: listName,
+                        author: {
+                            id: "57e27a326e0aee63403d9ad4",
+                            username: 'Spirit Of Scotland'
+                        }
+                    });
+                }
+            }
+        );
+        return data;
+    };
+
+    var mergeOrginalAndDetails = function (getNewData, data, data2, largeList) {
+        var newData = getNewData(data, largeList);
+        newData.forEach(function (still) {
+            still.locationType = "Distillery";
+            still.area = "No Area Found";
+            still.town = "No Town Found";
+            still.owner = "No Owner Found";
+            data2.forEach(function (newInfo) {
+                if (still.name == newInfo[0]) {
+                    still.area = newInfo[2];
+                    still.town = newInfo[1];
+                    still.owner = newInfo[3];
+                    return still;
+                }
+            });
+            Location.create(still, function (err, location) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.log("added " + location);
+
+                }
+
+            });
+        });
+
+    };
+
+
     //Remove all locations
     Location.remove({}, function (err) {
         if (err) {
@@ -1392,27 +1593,9 @@ function seedDB() {
         }
         console.log("removed locations!");
 
-        data.forEach(function (still) {
-            still.locationType = "Distillery";
-            data2.forEach(function (newInfo) {
-                if (still.name == newInfo[0]) {
-                    still.area = newInfo[2];
-                    still.town = newInfo[1];
-                    still.owner = newInfo[3];
+        mergeOrginalAndDetails(mergeLargeAndOriginal, data, data2, largeList);
 
-                    Location.create(still, function (err, location) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        else {
-                            console.log("added " + location);
 
-                        }
-
-                    });
-                }
-            });
-        });
 
 
     });
