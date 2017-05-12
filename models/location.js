@@ -42,6 +42,10 @@ var locationSchema = new mongoose.Schema({
    visits: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Visit"
+   }],
+   products: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product"
    }]
 });
 

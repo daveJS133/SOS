@@ -81,7 +81,6 @@ var largeList = [
     "Glengoyne",
     "Glengyle",
     "Glenkinchie",
-    "The Glenlivet",
     "Glenlochy",
     "Glenlossie",
     "Glenmorangie",
